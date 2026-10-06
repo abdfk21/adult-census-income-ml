@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# IDE and Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Streamlit local settings & secrets
+.streamlit/secrets.toml
+
+# Large uncompressed pickle models (>100MB exceeds GitHub push limit)
+# Note: GitHub hard blocks single files over 100MB.
+# The project includes model/best_adult_income_model_compressed.pkl.gz (64.5 MB) which is tracked.
+*.pkl
+!model/best_adult_income_model_compressed.pkl.gz

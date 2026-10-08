@@ -222,12 +222,13 @@ except Exception as e:
 # ---------------------------------------------------------
 # Preset Demographic Profiles for Rapid Testing
 # ---------------------------------------------------------
+FIXED_FNLWGT = 189795
+
 PRESETS = {
     "Custom Input (Select below)": None,
     "Executive / Tech Lead (High Earner Pattern)": {
         "age": 45,
         "workclass": "Private",
-        "fnlwgt": 178356,
         "education": "Masters",
         "education.num": 14,
         "marital.status": "Married-civ-spouse",
@@ -243,7 +244,6 @@ PRESETS = {
     "Entry-Level Retail Associate (Early Career Pattern)": {
         "age": 22,
         "workclass": "Private",
-        "fnlwgt": 194820,
         "education": "HS-grad",
         "education.num": 9,
         "marital.status": "Never-married",
@@ -259,7 +259,6 @@ PRESETS = {
     "Senior Academic / Professor (High Education)": {
         "age": 52,
         "workclass": "State-gov",
-        "fnlwgt": 182340,
         "education": "Doctorate",
         "education.num": 16,
         "marital.status": "Married-civ-spouse",
@@ -275,7 +274,6 @@ PRESETS = {
     "Self-Employed Craftsman (Moderate Hours, Capital Loss)": {
         "age": 39,
         "workclass": "Self-emp-not-inc",
-        "fnlwgt": 210450,
         "education": "Some-college",
         "education.num": 10,
         "marital.status": "Divorced",
@@ -387,7 +385,7 @@ if app_mode == "💼 Income Predictor":
             country_idx = metadata["categorical_options"]["native.country"].index(country_val) if country_val in metadata["categorical_options"]["native.country"] else 0
             native_country = st.selectbox("Native Country", metadata["categorical_options"]["native.country"], index=country_idx)
 
-        col5, col6, col7 = st.columns(3)
+        col5, col6 = st.columns(2)
         with col5:
             marital_val = preset_vals["marital.status"] if preset_vals else "Married-civ-spouse"
             marital_status = st.selectbox("Marital Status", metadata["categorical_options"]["marital.status"], index=metadata["categorical_options"]["marital.status"].index(marital_val))
@@ -396,10 +394,6 @@ if app_mode == "💼 Income Predictor":
             rel_val = preset_vals["relationship"] if preset_vals else "Husband"
             relationship = st.selectbox("Household Relationship", metadata["categorical_options"]["relationship"], index=metadata["categorical_options"]["relationship"].index(rel_val))
             
-        with col7:
-            fnlwgt_val = preset_vals["fnlwgt"] if preset_vals else 189795
-            fnlwgt = st.number_input("Census Sampling Weight (fnlwgt)", min_value=10000, max_value=1500000, value=fnlwgt_val, step=5000, help="Estimated population weight represented by this record in Census sampling.")
-
         st.markdown("#### 2. Education & Employment Attributes")
         col8, col9, col10, col11 = st.columns(4)
         
@@ -442,7 +436,7 @@ if app_mode == "💼 Income Predictor":
         input_data = {
             "age": age,
             "workclass": workclass,
-            "fnlwgt": fnlwgt,
+            "fnlwgt": FIXED_FNLWGT,
             "education": education,
             "education.num": education_num,
             "marital.status": marital_status,
